@@ -102,6 +102,18 @@ ON vac.location = cov.location
  AND vac.continent = cov.continent
  WHERE cov.continent IS NOT null
  GROUP BY cov.continent,cov.location
+ 
+--Lấy dữ liệu phục vụ trực quan hóa dữ liệu
+ SELECT cov.continent,cov.location, cov.date, MAX(cov.population) AS population, MAX(cov.total_cases) AS TotalCases, MAX(cov.total_deaths) AS TotalDeaths,
+ SUM(vac.new_vaccinations) AS totalVaccin,
+ SUM(vac.new_vaccinations)/max(cov.population) AS VaccinPerPeople
+FROM dbo.[Covid 19 Data] AS cov JOIN dbo.[Vaccin Covid 19 Data] AS vac
+ON vac.location = cov.location
+ AND vac.date = cov.date 
+ AND vac.continent = cov.continent
+ WHERE cov.continent IS NOT null
+ GROUP BY cov.continent,cov.location,cov.date
+ ORDER BY VaccinPerpeople desc
 
 
 
