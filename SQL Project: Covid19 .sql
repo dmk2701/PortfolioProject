@@ -1,4 +1,7 @@
-﻿SELECT * FROM dbo.[Covid 19 Data] ORDER BY 1,2
+Original data: https://ourworldindata.org/covid-deaths
+
+
+SELECT * FROM dbo.[Covid 19 Data] ORDER BY 1,2
 
 --Tổng số ca mắc 
 SELECT continent,location, MAX(population) AS population, sum(new_cases) AS TotalCases
@@ -80,10 +83,9 @@ ON vac.location = cov.location
  SELECT *  FROM PopVsVac ORDER BY PopVsVac.VaccinPerpeople DESC
  
  --Bảng tạm
-
-
 select
- cov.continent,cov.location, MAX(cov.population) AS population, SUM(vac.new_vaccinations) AS totalVaccin,  SUM(vac.new_vaccinations)/max(cov.population) AS VaccinPerpeople
+ cov.continent,cov.location, MAX(cov.population) AS population, SUM(vac.new_vaccinations) AS totalVaccin, 
+ SUM(vac.new_vaccinations)/max(cov.population) AS VaccinPerpeople
   INTO #Vaccinated --Bảng tạm
 FROM dbo.[Covid 19 Data] AS cov JOIN dbo.[Vaccin Covid 19 Data] AS vac
 ON vac.location = cov.location
@@ -114,6 +116,15 @@ ON vac.location = cov.location
  WHERE cov.continent IS NOT null
  GROUP BY cov.continent,cov.location,cov.date
  ORDER BY VaccinPerpeople desc
+
+
+
+
+
+
+
+
+ 
 
 
 
