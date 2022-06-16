@@ -1,4 +1,4 @@
-Original data: https://ourworldindata.org/covid-deaths
+Data Source: https://ourworldindata.org/covid-deaths
 
 
 SELECT * FROM dbo.[Covid 19 Data] ORDER BY 1,2
